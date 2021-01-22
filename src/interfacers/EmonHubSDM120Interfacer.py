@@ -100,9 +100,9 @@ class EmonHubSDM120Interfacer(EmonHubInterfacer):
                                         name = self._settings['names'][i]
                                     # apply rounding if set
                                     if i<len(self._settings['precision']):
-                                        value = round(value,self._settings['precision'][i])
+                                        value = round(value,int(self._settings['precision'][i]))
                                     
-                                    c.names.append(self._settings['prefix']+name)
+                                    c.names.append(str(self._settings['prefix'])+str(name))
                                     c.realdata.append(value)
                             self._log.debug(c.realdata)
                         except Exception as e:
