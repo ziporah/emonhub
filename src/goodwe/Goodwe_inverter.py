@@ -733,8 +733,11 @@ class ET(Inverter):
             "On-grid Mode",
             SensorKind.ac,
         ),
+        # Reactive power => 4 bytes 82 
         Sensor("xx82", 82, _read_bytes2, "", "Unknown sensor@82", None),
+        # Dummy element 84
         Sensor("xx84", 84, _read_bytes2, "", "Unknown sensor@84", None),
+        # Apparent power => 4 bytes 86 en 88
         Sensor("xx86", 86, _read_bytes2, "", "Unknown sensor@86", None),
         Sensor(
             "backup_v1", 90, _read_voltage, "V", "Back-up L1 Voltage", SensorKind.ups
@@ -937,15 +940,27 @@ class ET(Inverter):
         Sensor("xxx6", 6, _read_bytes2, "", "Unknown sensor2@6", None),
         Sensor("xxx8", 8, _read_bytes2, "", "Unknown sensor2@8", None),
         Sensor("xxx10", 10, _read_bytes2, "", "Unknown sensor2@10", None),
+        Sensor("meter_load_p1", 10, _read_bytes2, "W", "Meter Load In Out 1", SensorKind.ac),
         Sensor("xxx12", 12, _read_bytes2, "", "Unknown sensor2@12", None),
+        Sensor("meter_load_p2", 12, _read_bytes2, "W", "Meter Load In Out 2", SensorKind.ac),
         Sensor("xxx14", 14, _read_bytes2, "", "Unknown sensor2@14", None),
+        Sensor("meter_load_p3", 14, _read_bytes2, "W", "Meter Load In Out 3", SensorKind.ac),
+        # Sensor("active_power", 78, _read_power, "W", "Active Power", SensorKind.ac),
+        # 16 = sum of 10,12 and 14 = active power
         Sensor("xxx16", 16, _read_bytes2, "", "Unknown sensor2@16", None),
+        # 18 en 20 = unbalance en balance power needs
         Sensor("xxx18", 18, _read_bytes2, "", "Unknown sensor2@18", None),
         Sensor("xxx20", 20, _read_bytes2, "", "Unknown sensor2@20", None),
-        Sensor("xxx22", 22, _read_bytes2, "", "Unknown sensor2@22", None),
-        Sensor("xxx24", 24, _read_bytes2, "", "Unknown sensor2@24", None),
-        Sensor("xxx26", 26, _read_bytes2, "", "Unknown sensor2@26", None),
+        # This is the real power in (negative) and out (positive) of the house at the utility feed
+        Sensor("grid_in_out_p1", 22, _read_power2, "W", "Grid Active In out 1", None),
+        Sensor("grid_in_out_p2", 24, _read_power2, "W", "Grid Active In out 2", None),
+        Sensor("grid_in_out_p3", 26, _read_power2, "W", "Grid Active In out 3", None),
+        #Sensor("xxx22", 22, _read_bytes2, "", "Unknown sensor2@22", None),
+        #Sensor("xxx24", 24, _read_bytes2, "", "Unknown sensor2@24", None),
+        #Sensor("xxx26", 26, _read_bytes2, "", "Unknown sensor2@26", None),
+        # Sensor("grid_up_limit", 28, _read_bytes2, "", "Max power out ", None),
         Sensor("xxx28", 28, _read_bytes2, "", "Unknown sensor2@28", None),
+        # Some sort of accumulator gen total today ?
         Sensor("xxx30", 30, _read_bytes2, "", "Unknown sensor2@30", None),
         Sensor("xxx32", 32, _read_bytes2, "", "Unknown sensor2@32", None),
     )
