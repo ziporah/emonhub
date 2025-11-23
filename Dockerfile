@@ -17,4 +17,4 @@ RUN pip3 install --user configobj future iso8601 paho-mqtt requests serial
 WORKDIR /emonhome
 RUN git clone --depth 1 -b rpi4 https://github.com/ziporah/emonhub.git
 ENV EMONHUB_CONF=/emonhome/emonhub/conf/emonhub.conf
-CMD ["sh" "-c" "python3 $EMONHOME/emonhub/src/emonhub.py --config-file=$EMONHUB_CONF"]
+CMD python3 $EMONHOME/emonhub/src/emonhub.py --config-file=$EMONHUB_CONF
